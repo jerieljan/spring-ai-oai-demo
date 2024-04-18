@@ -50,4 +50,9 @@ Spring AI Reference
 - https://docs.spring.io/spring-ai/reference/1.0-SNAPSHOT/api/chat/openai-chat.html
 - https://github.com/rd-1-2022/ai-openai-helloworld
 
+OpenAI Reference
+- https://platform.openai.com/docs/api-reference/introduction
+- https://platform.openai.com/docs/assistants/overview (not used here, but recommended)
+- https://platform.openai.com/docs/assistants/how-it-works (not used here, but recommended)
+
 
