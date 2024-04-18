@@ -1,15 +1,13 @@
 package ph.com.novare.springaioaidemo;
 
-import org.springframework.ai.chat.messages.AssistantMessage;
-import org.springframework.ai.chat.messages.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.ai.chat.ChatResponse;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.PromptTemplate;
-import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.ai.openai.OpenAiChatOptions;
-import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,11 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 public class OpenAIChatController {
 
+    private static final Logger log = LoggerFactory.getLogger(OpenAIChatController.class);
     public static final String SYSTEM_PROMPT = "You are a helpful assistant. Be precise and concise.";
+    public static final String LLM_MODEL = "gpt-3.5-turbo";
     OpenAiChatClient client;
 
     @Autowired
@@ -32,16 +33,36 @@ public class OpenAIChatController {
 
     /**
      * Performs basic /chat/cpmpletion to the OpenAI API.
-     * @param message the instruction to send
-     * @return
+     *
+     * @param system the system prompt to use for the query. Defaults with SYSTEM_PROMPT.
+     * @param message the instruction to send.
+     *
+     * @return the response of the API.
      */
-    @GetMapping("/hello")
-    public Map chatCompletion(@RequestParam(value = "message") String message) {
+    @GetMapping("/ask")
+    public Map chatCompletionSystem(@RequestParam(value = "system", defaultValue = SYSTEM_PROMPT) String system,
+                                    @RequestParam(value = "message") String message) {
+        if (Objects.equals(system, SYSTEM_PROMPT)) {
+            log.info("➡️ /ask: \"{}\"", message);
+        } else {
+            log.info("➡️ /ask: \"{}\" -- \"{}\"", system, message);
+        }
+        return openAiChatCompletion(system, message);
+    }
 
+    /**
+     * Performs basic /chat/cpmpletion to the OpenAI API.
+     *
+     * @param systemMessage the system prompt to use for the query.
+     * @param message the instruction to send.
+     *
+     * @return the response of the API.
+     */
+    private Map<String, ChatResponse> openAiChatCompletion(String systemMessage, String message) {
         Prompt prompt = new Prompt(
-                List.of(new SystemMessage(SYSTEM_PROMPT),
+                List.of(new SystemMessage(systemMessage),
                         new UserMessage(message)), OpenAiChatOptions.builder()
-                .withModel("gpt-3.5-turbo")
+                .withModel(LLM_MODEL)
                 .withMaxTokens(200).build());
 
         return Map.of("generation", client.call(prompt));
