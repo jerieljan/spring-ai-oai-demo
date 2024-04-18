@@ -42,3 +42,12 @@ mvnw.cmd spring-boot:run
 ```
 
 instead.
+
+## References
+
+Spring AI Reference
+- https://docs.spring.io/spring-ai/reference/1.0-SNAPSHOT/getting-started.html
+- https://docs.spring.io/spring-ai/reference/1.0-SNAPSHOT/api/chat/openai-chat.html
+- https://github.com/rd-1-2022/ai-openai-helloworld
+
+
