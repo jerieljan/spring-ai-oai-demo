@@ -9,7 +9,6 @@ public class SpringAiOaiDemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAiOaiDemoApplication.class, args);
 
-
 	}
 }
 

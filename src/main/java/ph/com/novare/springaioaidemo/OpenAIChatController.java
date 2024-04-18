@@ -17,6 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The main controller for this demo.
+ * Contains references to the OpenAiChatClient, which is used for all OpenAI-facing commands.
+ *
+ * @author jerieljan
+ */
 @RestController
 public class OpenAIChatController {
 
@@ -47,6 +53,7 @@ public class OpenAIChatController {
         } else {
             log.info("➡️ /ask: \"{}\" -- \"{}\"", system, message);
         }
+
         return openAiChatCompletion(system, message);
     }
 
