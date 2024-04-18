@@ -43,6 +43,20 @@ mvnw.cmd spring-boot:run
 
 instead.
 
+### Performing a query
+
+You can perform a query using `curl` or `httpie` or any HTTP client.
+
+```bash
+# Using cURL
+curl "http://localhost:8080/ask?message=What%20is%20a%20solar%20eclipse?"
+```
+
+```bash
+# Using HTTPie
+http localhost:8080/ask\?message="What is a solar eclipse?"
+```
+
 ## References
 
 Spring AI Reference
