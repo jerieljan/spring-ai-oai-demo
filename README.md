@@ -2,6 +2,8 @@
 
 by [Jeriel Jan](https://github.com/jerieljan/)
 
+---
+
 A basic demonstration of using Spring Framework's AI packages.
 
 Used for presentation purposes.
@@ -9,4 +11,34 @@ Used for presentation purposes.
 ## Requirements
 
 - A development environment with **Java 17 or higher**
-- An OpenAI API key 
+- An OpenAI API key (see section on Usage)
+
+## Usage
+
+This repository requires an API key, stored separately in an `application-secrets.properties` 
+file.
+
+You can configure this by creating a new file with just this info:
+
+```properties
+spring.ai.openai.api-key=<YOUR-OPENAI-API-KEY>
+```
+
+Provide your API key on the space provided.
+
+### Using Maven
+
+Open a Terminal/Command Prompt: Navigate to the root directory of your Spring Boot project
+(where the pom.xml file is located).
+
+Execute the Spring Boot Maven plugin: Run the following command:  
+```bash
+./mvnw spring-boot:run
+```
+
+If you are on Windows, you might use 
+```
+mvnw.cmd spring-boot:run
+```
+
+instead.
